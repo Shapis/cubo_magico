@@ -13,7 +13,7 @@ public class EntireCube : MonoBehaviour
     {
         GenerateCube();
     }
-
+    //"BLA BLA BLA"
     private void RotateFace(int faceNumber) {
         List<Transform> faceCubes = new List<Transform>();
         if (faceNumber == 0){

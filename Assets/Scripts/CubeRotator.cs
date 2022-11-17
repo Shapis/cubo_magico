@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,6 +14,8 @@ public class CubeRotator : MonoBehaviour
     private Vector2 _touchUp;
     private Vector2 _touchDelta;
     private Transform _targetTransform;
+    private bool _isMoving = false;
+    private bool _isBeingDragged;
 
     // Start is called before the first frame update
     void Start()
@@ -26,15 +29,14 @@ public class CubeRotator : MonoBehaviour
     void Update()
     {
         CameraSwipeControl();
+        Drag();
+    }
 
-        if (transform.rotation != _targetTransform.rotation)
+    private void Drag()
+    {
+        if (!_isMoving && Input.GetMouseButton(1))
         {
-            var step = m_Speed * Time.deltaTime;
-            transform.rotation = Quaternion.RotateTowards(
-                transform.rotation,
-                _targetTransform.rotation,
-                step
-            );
+            print("dragging");
         }
     }
 
@@ -68,17 +70,32 @@ public class CubeRotator : MonoBehaviour
 
     void CameraSwipeControl()
     {
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(1) && !_isMoving)
         {
             _touchDown = Input.mousePosition;
         }
-        if (Input.GetMouseButtonUp(1))
+        if (Input.GetMouseButtonUp(1) && !_isMoving)
         {
             _touchUp = Input.mousePosition;
             _touchDelta = _touchUp - _touchDown;
             _touchDelta.Normalize();
 
             SwipeDirectionDecider(_touchDelta);
+        }
+
+        if (transform.rotation != _targetTransform.rotation && !_isBeingDragged)
+        {
+            _isMoving = true;
+            var step = m_Speed * Time.deltaTime;
+            transform.rotation = Quaternion.RotateTowards(
+                transform.rotation,
+                _targetTransform.rotation,
+                step
+            );
+        }
+        else if (!_isBeingDragged)
+        {
+            _isMoving = false;
         }
     }
 }

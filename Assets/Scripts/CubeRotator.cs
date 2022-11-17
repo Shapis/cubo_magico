@@ -25,7 +25,7 @@ public class CubeRotator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Swipe();
+        CameraSwipeControl();
 
         if (transform.rotation != _targetTransform.rotation)
         {
@@ -38,7 +38,35 @@ public class CubeRotator : MonoBehaviour
         }
     }
 
-    void Swipe()
+    private void SwipeDirectionDecider(Vector2 touchDelta)
+    {
+        if (touchDelta.x < 0f && touchDelta.y > -0.5f && touchDelta.y < 0.5f)
+        {
+            _targetTransform.Rotate(0, 90, 0, Space.World);
+        }
+        else if (touchDelta.x > 0f && touchDelta.y > -0.5f && touchDelta.y < 0.5f)
+        {
+            _targetTransform.Rotate(0, -90, 0, Space.World);
+        }
+        else if (touchDelta.x < 0f && touchDelta.y > 0f)
+        {
+            _targetTransform.Rotate(0, 0, 90, Space.World);
+        }
+        else if (touchDelta.x > 0f && touchDelta.y > 0f)
+        {
+            _targetTransform.Rotate(90, 0, 0, Space.World);
+        }
+        else if (touchDelta.x > 0f && touchDelta.y < 0f)
+        {
+            _targetTransform.Rotate(0, 0, -90, Space.World);
+        }
+        else if (touchDelta.x < 0f && touchDelta.y < 0f)
+        {
+            _targetTransform.Rotate(-90, 0, 0, Space.World);
+        }
+    }
+
+    void CameraSwipeControl()
     {
         if (Input.GetMouseButtonDown(1))
         {
@@ -49,34 +77,8 @@ public class CubeRotator : MonoBehaviour
             _touchUp = Input.mousePosition;
             _touchDelta = _touchUp - _touchDown;
             _touchDelta.Normalize();
-            if (LeftSwipe(_touchDelta))
-            {
-                _targetTransform.Rotate(0, 90, 0, Space.World);
-            }
-            else if (RightSwipe(_touchDelta))
-            {
-                _targetTransform.Rotate(0, -90, 0, Space.World);
-            }
-        }
 
-        bool LeftSwipe(Vector2 swipe)
-        {
-            return swipe.x < 0 && swipe.y > -0.5f && swipe.y < 0.5f;
-        }
-
-        bool RightSwipe(Vector2 swipe)
-        {
-            return swipe.x > 0 && swipe.y > -0.5f && swipe.y < 0.5f;
-        }
-
-        bool UpLeftSwipe(Vector2 swipe)
-        {
-            return swipe.x < 0f && swipe.y < 0f;
-        }
-
-        bool UpRightSwipe(Vector2 swipe)
-        {
-            return swipe.x > 0f && swipe.y < 0f;
+            SwipeDirectionDecider(_touchDelta);
         }
     }
 }

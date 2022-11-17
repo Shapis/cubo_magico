@@ -14,71 +14,102 @@ public class EntireCube : MonoBehaviour
         GenerateCube();
     }
 
-    private void RotateFace(int faceNumber) {
+    private void RotateFace(int faceNumber)
+    {
         List<Transform> faceCubes = new List<Transform>();
-        if (faceNumber == 0){
-            foreach (var item in myCubes){
-                if (item.position.z <= 0.1f){
+        if (faceNumber == 0)
+        {
+            foreach (var item in myCubes)
+            {
+                if (item.position.z <= 0.1f)
+                {
                     item.RotateAround(new Vector3(1f, 1f, 0f), Vector3.forward, 90f);
                 }
             }
-        }else if (faceNumber == 1){
-            foreach (var item in myCubes){
-                if (item.position.y >= 1.9f){
+        }
+        else if (faceNumber == 1)
+        {
+            foreach (var item in myCubes)
+            {
+                if (item.position.y >= 1.9f)
+                {
                     item.RotateAround(new Vector3(1f, 2f, 1f), Vector3.up, 90f);
                 }
             }
-        }else if (faceNumber == 2){
-            foreach (var item in myCubes){
-                if (item.position.z >= 1.9f){
+        }
+        else if (faceNumber == 2)
+        {
+            foreach (var item in myCubes)
+            {
+                if (item.position.z >= 1.9f)
+                {
                     item.RotateAround(new Vector3(1f, 1f, 2f), Vector3.forward, -90f);
                 }
             }
-        }else if (faceNumber == 3){
-            foreach (var item in myCubes){
-                if (item.position.y <= 0.1f){
+        }
+        else if (faceNumber == 3)
+        {
+            foreach (var item in myCubes)
+            {
+                if (item.position.y <= 0.1f)
+                {
                     item.RotateAround(new Vector3(1f, 0f, 1f), Vector3.down, 90f);
                 }
             }
-        }else if (faceNumber == 4){
-            foreach (var item in myCubes){
-                if (item.position.x <= 0.1f){
+        }
+        else if (faceNumber == 4)
+        {
+            foreach (var item in myCubes)
+            {
+                if (item.position.x <= 0.1f)
+                {
                     item.RotateAround(new Vector3(0f, 1f, 1f), Vector3.right, 90f);
                 }
             }
-        }else if (faceNumber == 5){
-            foreach (var item in myCubes){
-                if (item.position.x >= 1.9f){
+        }
+        else if (faceNumber == 5)
+        {
+            foreach (var item in myCubes)
+            {
+                if (item.position.x >= 1.9f)
+                {
                     item.RotateAround(new Vector3(2f, 1f, 1f), Vector3.left, 90f);
                 }
             }
         }
-        
     }
 
-    void Update(){
-        if (Input.GetKeyDown(KeyCode.E)){
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
             RotateFace(0);
         }
-        if (Input.GetKeyDown(KeyCode.W)){
+        if (Input.GetKeyDown(KeyCode.W))
+        {
             RotateFace(1);
         }
-        if (Input.GetKeyDown(KeyCode.Q)){
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
             RotateFace(2);
         }
-        if (Input.GetKeyDown(KeyCode.S)){
+        if (Input.GetKeyDown(KeyCode.S))
+        {
             RotateFace(3);
         }
-        if (Input.GetKeyDown(KeyCode.A)){
+        if (Input.GetKeyDown(KeyCode.A))
+        {
             RotateFace(4);
         }
-        if (Input.GetKeyDown(KeyCode.D)){
+        if (Input.GetKeyDown(KeyCode.D))
+        {
             RotateFace(5);
         }
     }
 
     void GenerateCube(int cubeSize = 3)
     {
+        float quadScale = 0.95f;
         for (int x = 0; x < cubeSize; x++)
         {
             for (int y = 0; y < cubeSize; y++)
@@ -86,58 +117,66 @@ public class EntireCube : MonoBehaviour
                 for (int z = 0; z < cubeSize; z++)
                 {
                     GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                    cube.GetComponent<Renderer>().material = m_Colors[6];
                     myCubes.Add(cube.transform);
+
                     if (x == 0)
                     {
                         var quad = GameObject.CreatePrimitive(PrimitiveType.Quad);
-                        quad.transform.position += new Vector3(-0.51f, 0, 0);
+                        quad.transform.position += new Vector3(-0.501f, 0, 0);
                         quad.transform.parent = cube.transform;
                         quad.GetComponent<Renderer>().material = m_Colors[0];
                         quad.transform.rotation = Quaternion.Euler(0, 90, 0);
+                        quad.transform.localScale = new Vector3(quadScale, quadScale, quadScale);
                     }
 
                     if (x == cubeSize - 1)
                     {
                         var quad = GameObject.CreatePrimitive(PrimitiveType.Quad);
-                        quad.transform.position += new Vector3(0.51f, 0, 0);
+                        quad.transform.position += new Vector3(0.501f, 0, 0);
                         quad.transform.parent = cube.transform;
                         quad.GetComponent<Renderer>().material = m_Colors[1];
                         quad.transform.rotation = Quaternion.Euler(0, -90, 0);
+                        quad.transform.localScale = new Vector3(quadScale, quadScale, quadScale);
                     }
 
                     if (y == 0)
                     {
                         var quad = GameObject.CreatePrimitive(PrimitiveType.Quad);
-                        quad.transform.position += new Vector3(0, -0.51f, 0);
+                        quad.transform.position += new Vector3(0, -0.501f, 0);
                         quad.transform.parent = cube.transform;
                         quad.GetComponent<Renderer>().material = m_Colors[2];
                         quad.transform.rotation = Quaternion.Euler(-90, 0, 0);
+                        quad.transform.localScale = new Vector3(quadScale, quadScale, quadScale);
                     }
 
                     if (y == cubeSize - 1)
                     {
                         var quad = GameObject.CreatePrimitive(PrimitiveType.Quad);
-                        quad.transform.position += new Vector3(0, 0.51f, 0);
+                        quad.transform.position += new Vector3(0, 0.501f, 0);
                         quad.transform.parent = cube.transform;
                         quad.GetComponent<Renderer>().material = m_Colors[3];
                         quad.transform.rotation = Quaternion.Euler(90, 0, 0);
+                        quad.transform.localScale = new Vector3(quadScale, quadScale, quadScale);
                     }
 
                     if (z == 0)
                     {
                         var quad = GameObject.CreatePrimitive(PrimitiveType.Quad);
-                        quad.transform.position += new Vector3(0, 0, -0.51f);
+                        quad.transform.position += new Vector3(0, 0, -0.501f);
                         quad.transform.parent = cube.transform;
                         quad.GetComponent<Renderer>().material = m_Colors[4];
+                        quad.transform.localScale = new Vector3(quadScale, quadScale, quadScale);
                     }
 
                     if (z == cubeSize - 1)
                     {
                         var quad = GameObject.CreatePrimitive(PrimitiveType.Quad);
-                        quad.transform.position += new Vector3(0, 0, 0.51f);
+                        quad.transform.position += new Vector3(0, 0, 0.501f);
                         quad.transform.parent = cube.transform;
                         quad.GetComponent<Renderer>().material = m_Colors[5];
                         quad.transform.rotation = Quaternion.Euler(180, 0, 0);
+                        quad.transform.localScale = new Vector3(quadScale, quadScale, quadScale);
                     }
 
                     cube.transform.parent = transform;

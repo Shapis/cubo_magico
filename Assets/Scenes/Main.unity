@@ -189,7 +189,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_EntireCube: {fileID: 539050182}
-  m_Speed: 200
+  m_Speed: 5000
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0

@@ -123,6 +123,7 @@ public class EntireCube : MonoBehaviour
                     if (x == 0)
                     {
                         var quad = GameObject.CreatePrimitive(PrimitiveType.Quad);
+                        quad.GetComponent<MeshCollider>().enabled = false;
                         quad.transform.position += new Vector3(-0.501f, 0, 0);
                         quad.transform.parent = cube.transform;
                         quad.GetComponent<Renderer>().material = m_Colors[0];
@@ -133,6 +134,7 @@ public class EntireCube : MonoBehaviour
                     if (x == cubeSize - 1)
                     {
                         var quad = GameObject.CreatePrimitive(PrimitiveType.Quad);
+                        quad.GetComponent<MeshCollider>().enabled = false;
                         quad.transform.position += new Vector3(0.501f, 0, 0);
                         quad.transform.parent = cube.transform;
                         quad.GetComponent<Renderer>().material = m_Colors[1];
@@ -143,6 +145,7 @@ public class EntireCube : MonoBehaviour
                     if (y == 0)
                     {
                         var quad = GameObject.CreatePrimitive(PrimitiveType.Quad);
+                        quad.GetComponent<MeshCollider>().enabled = false;
                         quad.transform.position += new Vector3(0, -0.501f, 0);
                         quad.transform.parent = cube.transform;
                         quad.GetComponent<Renderer>().material = m_Colors[2];
@@ -153,6 +156,7 @@ public class EntireCube : MonoBehaviour
                     if (y == cubeSize - 1)
                     {
                         var quad = GameObject.CreatePrimitive(PrimitiveType.Quad);
+                        quad.GetComponent<MeshCollider>().enabled = false;
                         quad.transform.position += new Vector3(0, 0.501f, 0);
                         quad.transform.parent = cube.transform;
                         quad.GetComponent<Renderer>().material = m_Colors[3];
@@ -163,6 +167,7 @@ public class EntireCube : MonoBehaviour
                     if (z == 0)
                     {
                         var quad = GameObject.CreatePrimitive(PrimitiveType.Quad);
+                        quad.GetComponent<MeshCollider>().enabled = false;
                         quad.transform.position += new Vector3(0, 0, -0.501f);
                         quad.transform.parent = cube.transform;
                         quad.GetComponent<Renderer>().material = m_Colors[4];
@@ -172,6 +177,7 @@ public class EntireCube : MonoBehaviour
                     if (z == cubeSize - 1)
                     {
                         var quad = GameObject.CreatePrimitive(PrimitiveType.Quad);
+                        quad.GetComponent<MeshCollider>().enabled = false;
                         quad.transform.position += new Vector3(0, 0, 0.501f);
                         quad.transform.parent = cube.transform;
                         quad.GetComponent<Renderer>().material = m_Colors[5];
